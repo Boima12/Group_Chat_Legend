@@ -2,7 +2,7 @@
 
 Luật chơi:
 - Bảo làm Frontend, Đính Backend, cố gắng tái tạo lại dự án "Group_Chat_23it" càng tốt càng hay.
-- thời gian : 7:00 02/03/2024 --> 21:00 02/03/2024
+- thời gian : 7:00 02/03/2024 --> 21:00 03/03/2024
 
 vào lúc 7H00 Bảo sẽ gửi Đính link Dự án Github có tên "Group_Chat_Legend", trong đó chỉ chứa 1 file README.md và 1 branch tên là "Legend", 2 người sẽ làm trưc tiếp trên branch "Legend" chứ không phải "main", rồi sau đó mình pull request và merge 2 branches lại với nhau sau.
 
