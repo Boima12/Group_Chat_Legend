@@ -268,7 +268,6 @@ public class MainUI extends JFrame {
 					JOptionPane.showMessageDialog(null, "Tên người dùng không được để trống!", "Nhập lại tên!", JOptionPane.PLAIN_MESSAGE);
 				} else {
 					setUsername(Username_Tf.getText());
-					setTitle(Username_Tf.getText());
 					dialog.dispose();
 				}
 			}
