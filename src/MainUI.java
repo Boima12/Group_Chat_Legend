@@ -19,7 +19,7 @@ public class MainUI extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	
+	private JFrame jframe;
 	private Boolean isChatting = false;		// mốc tín hiệu có phải là đang trong chat mode hay không.
 	
 	private String Username;
@@ -29,6 +29,7 @@ public class MainUI extends JFrame {
 	private JTextArea Ta_Khungnhap;
 	private JButton Bt_Send;
 	private JTextArea Ta_Khungchat;
+	private JFrame DiaFrame = new JFrame("showDialog_Username's frame");
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -53,7 +54,7 @@ public class MainUI extends JFrame {
 
 	public MainUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1170, 740);
+		setBounds(100, 100, 1170, 770);
 		setTitle("Group_Chat_Legend");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -61,13 +62,40 @@ public class MainUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		// TODO Bảo sẽ thêm JMenu vào sau
-//		// JMenu
-//		JMenuBar menubar1 = new JMenuBar();
-//		JMenu menu1 = new JMenu("Home");
-//		menubar1.add(menu1);
-//		
-//		JMenuItem menu1_it1 = new JMenuItem();
+		// JMenu
+		JMenuBar menubar1 = new JMenuBar();
+		JMenu menu1 = new JMenu("Home");
+		menubar1.add(menu1);
+		
+		JMenuItem menu1_it1 = new JMenuItem("Change Username");
+		menu1_it1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (isChatting) {
+					JOptionPane.showMessageDialog(null, "Bạn phải rời khỏi cuộc chat hiện tại trước!", "Lỗi", JOptionPane.PLAIN_MESSAGE);
+					return;
+				}
+				
+				// hỏi tên Username
+				showDialog_Username(DiaFrame, "Sửa tên");
+				setTitle("Group_Chat_Legend (" + Username + ")");
+			}
+		});
+		menu1.add(menu1_it1);
+		
+		JMenuItem menu1_it2 = new JMenuItem("Exit");
+		menu1_it2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Disconnect();
+				System.exit(0);
+			}
+		});
+		menu1.add(menu1_it2);
+		
+		setJMenuBar(menubar1);
 		
 		
 		JPanel pad1 = new JPanel();
@@ -192,12 +220,12 @@ public class MainUI extends JFrame {
 		
 		
 		// hỏi tên Username
-		JFrame DiaFrame = new JFrame("showDialog_Username's frame");
-		showDialog_Username(DiaFrame);
+		showDialog_Username(DiaFrame, "Đăng nhập");
+		setTitle("Group_Chat_Legend (" + Username + ")");
 		
 	}
 	
-    private void showDialog_Username(JFrame parentFrame) {
+    private void showDialog_Username(JFrame parentFrame, String str1) {
         JDialog dialog = new JDialog(parentFrame, "Nhập tên người dùng", true);
 
 		JPanel panel = new JPanel();
@@ -229,7 +257,7 @@ public class MainUI extends JFrame {
 		});
 		panel.add(Username_Tf);
 		
-		JButton Dangnhap_Bt = new JButton("Đăng nhập");
+		JButton Dangnhap_Bt = new JButton(str1);
 		Dangnhap_Bt.setBounds(92, 110, 107, 31);
 		Dangnhap_Bt.addActionListener(new ActionListener() {
 			
@@ -240,6 +268,7 @@ public class MainUI extends JFrame {
 					JOptionPane.showMessageDialog(null, "Tên người dùng không được để trống!", "Nhập lại tên!", JOptionPane.PLAIN_MESSAGE);
 				} else {
 					setUsername(Username_Tf.getText());
+					setTitle(Username_Tf.getText());
 					dialog.dispose();
 				}
 			}
@@ -289,6 +318,11 @@ public class MainUI extends JFrame {
     }
     
     private void Sending() {
+    	String msgCheck = Ta_Khungnhap.getText();
+    	if (msgCheck.isEmpty()) {
+    		return;		// không gửi khi không có tin nhắn nào cả.
+    	}
+    	
 		// TODO Thêm các chức năng khi gửi thông tin(tin nhắn) vào đây
 			
     	
@@ -312,5 +346,13 @@ public class MainUI extends JFrame {
 
 	public void setUsername(String username) {
 		Username = username;
+	}
+
+	public JFrame getJframe() {
+		return jframe;
+	}
+
+	public void setJframe(JFrame jframe) {
+		this.jframe = jframe;
 	}
 }
