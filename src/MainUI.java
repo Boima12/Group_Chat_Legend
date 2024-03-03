@@ -152,6 +152,20 @@ public class MainUI extends JFrame {
 		Lb_Diachi.setBounds(87, 236, 136, 25);
 		pad1.add(Lb_Diachi);
 		
+		JButton Bt_Help = new JButton("?");
+		Bt_Help.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 20));
+		Bt_Help.setBackground(new Color(217, 217, 217));
+		Bt_Help.setBounds(351, 261, 48, 39);
+		Bt_Help.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFrame DiaFrame = new JFrame("JDialog's frame");
+				showHelp(DiaFrame);				
+			}
+		});
+		pad1.add(Bt_Help);
+		
 		JPanel pad2 = new JPanel();
 		pad2.setBackground(new Color(243, 243, 243));
 		pad2.setBounds(445, 10, 701, 693);
@@ -308,6 +322,38 @@ public class MainUI extends JFrame {
     	Ta_Khungchat.setBackground(new Color(219, 219, 219));
     	Bt_Send.setEnabled(false);
     }
+    
+    
+    private void showHelp(JFrame parentFrame) {
+    	JDialog dialog = new JDialog(parentFrame, "Bảng hướng dẫn", true);
+    	JPanel panel = new JPanel();
+    	panel.setBounds(470, 230, 600, 400);
+    	panel.setLayout(null);
+    	
+    	JTextArea Ta_Huongdan = new JTextArea();
+		Ta_Huongdan.setFont(new Font("Monospaced", Font.PLAIN, 15));
+		Ta_Huongdan.setOpaque(false);
+		Ta_Huongdan.setEditable(false);
+		Ta_Huongdan.setText("có 2 cách kết nối IPv4:\r\n\r\n1. \"localhost\"\r\n- đây là cách host cục bộ trên máy, chỉ những người dùng dùng chung 1 hệ thống máy tính mới kết nối được.\r\n\r\n2. \"???.???.???.???\"\r\n- đây là cách host trên mạng wifi, những người dùng riêng biệt với nhau khi kết nối cùng 1 mạng thì có thể kết nối với nhau được.\r\nvd: 19.117.63.253");
+		Ta_Huongdan.setWrapStyleWord(true);
+		Ta_Huongdan.setLineWrap(true);
+		Ta_Huongdan.setBounds(29, 41, 527, 252);
+		panel.add(Ta_Huongdan);
+		
+		JLabel lblNewLabel = new JLabel("Hướng dẫn");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel.setBounds(182, 10, 200, 21);
+		panel.add(lblNewLabel);
+		
+		dialog.getContentPane().add(panel);
+		
+        // Set dialog properties
+        dialog.setSize(610, 410);
+        dialog.setLocationRelativeTo(parentFrame);
+        dialog.setVisible(true);
+    }
+    
     
     private void Connect() {
 		Chatmode_On();
