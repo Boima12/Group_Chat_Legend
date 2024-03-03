@@ -8,14 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.BufferedInputStream;
-
-import javax.swing.border.BevelBorder;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.MatteBorder;
-import javax.swing.border.SoftBevelBorder;
-import java.io.*;
+import javax.swing.border.*;
 import java.net.*;
 
 public class MainUI extends JFrame {
@@ -383,8 +376,8 @@ public class MainUI extends JFrame {
     	if (msgCheck.isEmpty()) {
     		return;		// không gửi khi không có tin nhắn nào cả.
     	}
-			client.SendMsg(Ta_Khungnhap); 
-			Ta_Khungnhap.setText("");
+		client.SendMsg(Ta_Khungnhap); 
+		Ta_Khungnhap.setText("");
     }
     
     private void Disconnect() {

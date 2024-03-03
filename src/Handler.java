@@ -1,6 +1,5 @@
 import java.io.*;
 import java.net.*;
-import java.util.*;
 
 public class Handler {
   private Socket socket;
@@ -41,7 +40,7 @@ public class Handler {
             ChatServer.Broadcast("[" + name + "]: " + msg);
           }
         } catch (Exception e) {
-          e.printStackTrace();
+//          e.printStackTrace();
         }
       }
     }));
@@ -72,6 +71,7 @@ public class Handler {
       }
 
       System.out.println(name + " đã ngắt kết nối!");
+      ChatServer.Broadcast(name + " đã ngắt kết nối!");
     } catch (Exception e) {
       e.printStackTrace();
     }

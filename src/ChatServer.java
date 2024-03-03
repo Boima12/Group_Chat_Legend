@@ -2,7 +2,7 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 public class ChatServer {
-  private static final int PORT = 5000;
+//  private static final int PORT = 5000;
   private ServerSocket serverSocket;
   public static ArrayList<Handler> handlerList = new ArrayList<>();
 
