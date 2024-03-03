@@ -8,12 +8,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.BufferedInputStream;
 
 import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.SoftBevelBorder;
+import java.io.*;
+import java.net.*;
 
 public class MainUI extends JFrame {
 
@@ -30,6 +33,9 @@ public class MainUI extends JFrame {
 	private JButton Bt_Send;
 	private JTextArea Ta_Khungchat;
 	private JFrame DiaFrame = new JFrame("showDialog_Username's frame");
+
+	private Socket socket;
+	private ChatClient client;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -200,7 +206,6 @@ public class MainUI extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Sending();
-				
 			}
 		});
 		pad2.add(Bt_Send);
@@ -310,9 +315,20 @@ public class MainUI extends JFrame {
     }
     
     private void Connect() {
-		Chatmode_On();
-		
-		// TODO	Thêm các chức năng kết nối vào đây
+			Chatmode_On();
+			
+			try {
+				Ta_Khungchat.setText("");
+				Ta_Khungnhap.setText("");
+
+				socket = new Socket(Tf_Diachi.getText(), 1610);
+				client = new ChatClient(socket, Username, Ta_Khungchat);
+
+				client.ReceiveMsg(Ta_Khungchat); 
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "Couldn't connect to the server, mind checking your internet connection?", "Connection failed", JOptionPane.PLAIN_MESSAGE);
+				e.printStackTrace();
+			}
 		
     }
     
@@ -321,24 +337,22 @@ public class MainUI extends JFrame {
     	if (msgCheck.isEmpty()) {
     		return;		// không gửi khi không có tin nhắn nào cả.
     	}
-    	
-		// TODO Thêm các chức năng khi gửi thông tin(tin nhắn) vào đây
-			
-    	
+			client.SendMsg(Ta_Khungnhap); 
+			Ta_Khungnhap.setText("");
     }
     
     private void Disconnect() {
-		Chatmode_Off();
-		
-		// TODO Thêm các chức năng hủy kết nối vào đây
-		
+			Chatmode_Off();
+			try {
+				if(socket != null){
+					socket.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
     	
     }
-    
-    
-    
-    
-    
+  
 	public String getUsername() {
 		return Username;
 	}
